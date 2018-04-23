@@ -166,38 +166,20 @@ class AppRequestCriteria extends RepositoryRequestCriteria
         if (isset($orderBy) && !empty($orderBy)) {
             $split = explode('|', $orderBy);
             if(count($split) > 1) {
-                /*
-                 * ex.
-                 * products|description -> join products on current_table.product_id = products.id order by description
-                 *
-                 * products:custom_id|products.description -> join products on current_table.custom_id = products.id order
-                 * by products.description (in case both tables have same column name)
-                 */
                 $table = $model->getModel()->getTable();
                 $sortTable = $split[0];
                 $sortColumn = $split[1];
 
-                \Log::debug($table);
-                \Log::debug($sortTable);
-                \Log::debug($sortColumn);
 
                 $split = explode(':', $sortTable);
                 if(count($split) > 1) {
                     $sortTable = $split[0];
                     $keyName = $table.'.'.$split[1];
                 } else {
-                    /*
-                     * If you do not define which column to use as a joining column on current table, it will
-                     * use a singular of a join table appended with _id
-                     *
-                     * ex.
-                     * products -> product_id
-                     */
-
                     $match = [];
                     preg_match('/_status$/', $sortTable, $match);
 
-                    \Log::info($match);
+
 
                     if(count($match)){
                         $prefix = $sortTable;
@@ -216,7 +198,6 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                 \Log::info($model->toSql());
             } else {
                 $model = $model->orderBy($orderBy, $sortedBy);
-//                \Log::info($model->toSql());
             }
         }
 
