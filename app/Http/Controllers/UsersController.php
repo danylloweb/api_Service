@@ -48,7 +48,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->repository->all();
 
         if (request()->wantsJson()) {
