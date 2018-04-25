@@ -14,8 +14,25 @@ use App\Validators\UserValidator;
  *
  * @package namespace App\Repositories;
  */
-class UserRepositoryEloquent extends BaseRepository implements UserRepository
+class UserRepositoryEloquent extends AppRepository implements UserRepository
 {
+
+    protected $fieldSearchable = [
+        'id',
+        'name'  => 'like',
+        'email' => 'like'
+    ];
+
+    /**
+     * Regras para busca
+     *
+     * @var array
+     */
+    protected $fieldsRules = [
+        'id'     => ['numeric', 'max:2147483647'],
+        'name'   => ['max:100'],
+        'email'  => ['max:100']
+    ];
     /**
      * Specify Model class name
      *
