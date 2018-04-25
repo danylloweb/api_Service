@@ -21,7 +21,7 @@ class User extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-        'name', 'email','type', 'password',
+        'name', 'email','type', 'password','status'
     ];
     /**
      * @var array
@@ -38,4 +38,7 @@ class User extends Model implements Transformable
         'deleted_at',
     ];
 
+    const TYPE_CLIENTE  = 0;
+    const TYPE_PARCEIRO = 1;
+    const TYPE_ADM      = 2;
 }

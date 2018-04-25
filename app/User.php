@@ -27,4 +27,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @param string $token
+     * @return array
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $reset = $this->notify(new ResetPasswordNotification($token));
+        DB::table('password_resets')->where('email', $this->email)->update(['token' => $token]);
+        if ($reset) {
+            return ['erro' => false, 'message' => 'Email enviado!'];
+        }
+        return [
+            'erro' => true,
+            'message' => 'Usuário bloqueado!'
+        ];
+    }
 }
