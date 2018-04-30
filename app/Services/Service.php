@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\DB;
  */
 class Service 
 {
-
-
     /**
      * @param bool $object
      * @return \Illuminate\Contracts\Auth\Authenticatable|null

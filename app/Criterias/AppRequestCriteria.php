@@ -113,7 +113,8 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                                     }else{
                                         $query->where(function($q) use ($field,$condition,$value, $parsedValue) {
                                             $q->where($field,$condition,$value)
-                                                ->orWhere(DB::raw("normalize_search($field)"),$condition, "%$parsedValue%");
+//                                                ->orWhere(DB::raw("normalize_search($field)"),$condition, "%$parsedValue%");
+                                                ->orWhere($field,$condition, "%$parsedValue%");
                                         });
                                     }
 
@@ -124,7 +125,7 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                                 }else{
                                     $query->where(function($q) use ($modelTableName, $field,$condition,$value, $parsedValue) {
                                         $q->where($modelTableName.'.'.$field,$condition,$value)
-                                            ->orWhere(DB::raw('normalize_search('.$modelTableName.'.'.$field.')'), $condition, "%$parsedValue%");
+                                            ->orWhere($modelTableName.'.'.$field, $condition, "%$parsedValue%");
                                     });
                                 }
 
@@ -141,7 +142,8 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                                     }else{
                                         $query->where(function($q) use ($field,$condition,$value, $parsedValue) {
                                             $q->where($field,$condition,$value)
-                                                ->orWhere(DB::raw("normalize_search($field)"),$condition, "%$parsedValue%");
+//                                                ->orWhere(DB::raw("normalize_search($field)"),$condition, "%$parsedValue%");
+                                                ->orWhere($field,$condition, "%$parsedValue%");
                                         });
                                     }
 
@@ -153,7 +155,7 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                                 }else{
                                     $query->orWhere(function($q) use ($modelTableName, $field,$condition,$value, $parsedValue) {
                                         $q->where($modelTableName.'.'.$field,$condition,$value)
-                                            ->orWhere(DB::raw('normalize_search('.$modelTableName.'.'.$field.')'),$condition, "%$parsedValue%");
+                                            ->orWhere($modelTableName.'.'.$field,$condition, "%$parsedValue%");
                                     });
                                 }
                             }
@@ -163,12 +165,21 @@ class AppRequestCriteria extends RepositoryRequestCriteria
             });
         }
 
+
         if (isset($orderBy) && !empty($orderBy)) {
             $split = explode('|', $orderBy);
             if(count($split) > 1) {
+                /*
+                 * ex.
+                 * products|description -> join products on current_table.product_id = products.id order by description
+                 *
+                 * products:custom_id|products.description -> join products on current_table.custom_id = products.id order
+                 * by products.description (in case both tables have same column name)
+                 */
                 $table = $model->getModel()->getTable();
                 $sortTable = $split[0];
                 $sortColumn = $split[1];
+
 
 
                 $split = explode(':', $sortTable);
@@ -176,9 +187,16 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                     $sortTable = $split[0];
                     $keyName = $table.'.'.$split[1];
                 } else {
+                    /*
+                     * If you do not define which column to use as a joining column on current table, it will
+                     * use a singular of a join table appended with _id
+                     *
+                     * ex.
+                     * products -> product_id
+                     */
+
                     $match = [];
                     preg_match('/_status$/', $sortTable, $match);
-
 
 
                     if(count($match)){
@@ -195,9 +213,9 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                     ->orderBy($sortColumn, $sortedBy)
                     ->addSelect($table.'.*');
 
-                \Log::info($model->toSql());
             } else {
                 $model = $model->orderBy($orderBy, $sortedBy);
+//                \Log::info($model->toSql());
             }
         }
 
