@@ -113,7 +113,6 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                                     }else{
                                         $query->where(function($q) use ($field,$condition,$value, $parsedValue) {
                                             $q->where($field,$condition,$value)
-//                                                ->orWhere(DB::raw("normalize_search($field)"),$condition, "%$parsedValue%");
                                                 ->orWhere($field,$condition, "%$parsedValue%");
                                         });
                                     }
@@ -142,7 +141,6 @@ class AppRequestCriteria extends RepositoryRequestCriteria
                                     }else{
                                         $query->where(function($q) use ($field,$condition,$value, $parsedValue) {
                                             $q->where($field,$condition,$value)
-//                                                ->orWhere(DB::raw("normalize_search($field)"),$condition, "%$parsedValue%");
                                                 ->orWhere($field,$condition, "%$parsedValue%");
                                         });
                                     }
