@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Controllers\Traits;
+namespace App\Http\Controllers\Traits;
 
 use Illuminate\Http\Request;
 use Prettus\Validator\Contracts\ValidatorInterface;
