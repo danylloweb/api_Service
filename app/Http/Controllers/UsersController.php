@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Services\UserService;
 use App\Validators\UserValidator;
 use App\Http\Controllers\Traits\CrudMethods;
+use App\Http\Requests\UserCreateRequest;
 
 /**
  * Class UsersController.
@@ -25,16 +24,13 @@ class UsersController extends Controller
     /**
      * @var UserValidator
      */
-    protected $validator;
-
+    protected $createRequest = UserCreateRequest::class;
     /**
      * UsersController constructor.
      * @param UserService $service
-     * @param UserValidator $validator
      */
-    public function __construct(UserService $service, UserValidator $validator)
+    public function __construct(UserService $service)
     {
         $this->service = $service;
-        $this->validator  = $validator;
     }
 }
