@@ -19,10 +19,6 @@ trait CrudMethods
      */
     public function all(int $limit = 20)
     {
-        $this->repository
-            ->resetCriteria()
-            ->pushCriteria(app('App\Criterias\FilterByStatusCriteria'))
-            ->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         return $this->repository->paginate($limit);
     }
 
@@ -76,4 +72,17 @@ trait CrudMethods
         return $this->repository->skipPresenter()->findWhere($data);
 
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @return array
+     */
+    public function delete($id)
+    {
+        $this->repository->delete($id);
+        return ['error' => false];
+    }
+
 }

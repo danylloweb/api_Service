@@ -55,4 +55,15 @@ trait CrudMethods
     {
         return $this->service->update($request->all(), $id);
     }
+
+    /**
+     * Softdeletes the specified resource from storage.
+     *
+     * @param $id
+     * @return array
+     */
+    public function trash($id)
+    {
+        return $this->service->delete($id);
+    }
 }
