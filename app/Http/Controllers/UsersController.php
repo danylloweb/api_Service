@@ -6,7 +6,6 @@ use App\Http\Requests;
 use App\Services\UserService;
 use App\Validators\UserValidator;
 use App\Http\Controllers\Traits\CrudMethods;
-use App\Http\Requests\UserCreateRequest;
 
 /**
  * Class UsersController.
@@ -24,13 +23,16 @@ class UsersController extends Controller
     /**
      * @var UserValidator
      */
-    protected $createRequest = UserCreateRequest::class;
+    protected $validator;
+
     /**
      * UsersController constructor.
      * @param UserService $service
+     * @param UserValidator $validator
      */
-    public function __construct(UserService $service)
+    public function __construct(UserService $service, UserValidator $validator)
     {
-        $this->service = $service;
+        $this->service   = $service;
+        $this->validator = $validator;
     }
 }
