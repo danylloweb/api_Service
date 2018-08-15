@@ -53,8 +53,7 @@ class ResetPasswordNotification extends Notification
         ];
 
         return  (new MailMessage)->view('auth.passwords.email-reset',$data)
-            ->from('contato@buscaaereo.com.br','Controle de Usuário')
-            ->bcc('danyllo.ferreira@mangue3.com')
+            ->from('danyllophp@gmail.com','Controle de Senha')
             ->subject('Redefinição de Senha');
         
     }
