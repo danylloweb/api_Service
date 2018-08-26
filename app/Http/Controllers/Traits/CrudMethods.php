@@ -110,4 +110,8 @@ trait CrudMethods
         return $this->service->findWhere($data);
     }
 
+    public function template()
+    {
+        return view('home');
+    }
 }
