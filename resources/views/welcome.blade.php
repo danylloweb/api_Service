@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Api Ikoneki</title>
+    <title>Api Laravel</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -75,7 +75,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            API Ikoneki </br>
+            API Laravel </br>
             2018 </br>
         </div>
 
@@ -84,7 +84,7 @@
         </div>
 
         <div class="sub-title m-b-md">
-            <a href="https://mangue3.com/"><img  width="600px;" src="https://mangue3.com/img/Mangue3%20Logo.png" alt=""></a>
+        
         </div>
 
         <div class="links">
