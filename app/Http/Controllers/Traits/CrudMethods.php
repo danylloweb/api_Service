@@ -112,6 +112,6 @@ trait CrudMethods
 
     public function template()
     {
-        return view('home');
+        return view('welcome');
     }
 }
