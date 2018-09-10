@@ -2,30 +2,31 @@
 
 namespace App\Repositories;
 
-use App\Presenters\CompanyPresenter;
+use App\Presenters\ContactPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\CompanyRepository;
-use App\Entities\Company;
-use App\Validators\CompanyValidator;
+use App\Repositories\ContactRepository;
+use App\Entities\Contact;
+use App\Validators\ContactValidator;
 
 /**
- * Class CompanyRepositoryEloquent.
+ * Class ContactRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class CompanyRepositoryEloquent extends AppRepository implements CompanyRepository
+class ContactRepositoryEloquent extends AppRepository implements ContactRepository
 {
+
     protected $fieldSearchable = [
-        'razao'    => 'like',
-        'cnpj'     => 'like',
-        'fantasia '=> 'like'
+        'email' => 'like',
+        'name'  => 'like',
+        'phone' => 'like'
     ];
 
     protected $fieldsRules = [
-        'cnpj'     => ['numeric', 'max:2147483647'],
-        'razao'    => ['max:100'],
-        'fantasia' => ['max:100']
+        'email' => ['max:2147483647'],
+        'name'  => ['max:100'],
+        'phone' => ['max:100']
     ];
     /**
      * Specify Model class name
@@ -34,7 +35,7 @@ class CompanyRepositoryEloquent extends AppRepository implements CompanyReposito
      */
     public function model()
     {
-        return Company::class;
+        return Contact::class;
     }
 
     /**
@@ -44,17 +45,15 @@ class CompanyRepositoryEloquent extends AppRepository implements CompanyReposito
     */
     public function validator()
     {
-
-        return CompanyValidator::class;
+        return ContactValidator::class;
     }
-
 
     /**
      * @return mixed
      */
     public function presenter()
     {
-      return CompanyPresenter::class;
+        return ContactPresenter::class;
     }
-    
+
 }

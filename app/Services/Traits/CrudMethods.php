@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services\Traits;
+namespace App\Services\Traits;
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 
